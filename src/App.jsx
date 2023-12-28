@@ -3,15 +3,13 @@ import { Helmet } from "react-helmet";
 import Favicon from "./assets/images/task-done-flat.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { RouterProvider } from "react-router-dom";
+import router from "./router/Router";
 const App = () => {
     return (
         <>
             <Helmet>
-                <link
-                    rel="shortcut icon"
-                    href={Favicon}
-                    type="image/x-icon"
-                />
+                <link rel="shortcut icon" href={Favicon} type="image/x-icon" />
             </Helmet>
             <ToastContainer
                 position="top-center"
@@ -25,7 +23,7 @@ const App = () => {
                 pauseOnHover
                 theme="light"
             />
-            <Home />
+            <RouterProvider router={router} />
         </>
     );
 };

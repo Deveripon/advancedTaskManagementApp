@@ -25,10 +25,9 @@
     ::-webkit-scrollbar-track:hover {
         background: #e6e7eb;
     }
+    a.active {
+        background-color: aqua;
+    }
 }
 @layer components {
-    .active-action {
-        @apply bg-blue-harder;
-        @apply text-orange;
-    }
 }

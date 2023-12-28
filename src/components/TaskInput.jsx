@@ -2,12 +2,13 @@ import Divider from "./Divider";
 import { useContext } from "react";
 import InputFormContext from "../context/InputFormContext";
 import TodoContext from "../context/TodoContext";
-import axios from "axios";
 import { toast } from "react-toastify";
+import { TASK_API_KEY } from "../API";
+import axios from "axios";
 
 const TaskInput = () => {
     const { handleFormHide } = useContext(InputFormContext);
-    const { todos, setTodos } = useContext(TodoContext);
+    const { todos, setTodos, initialTodoFormState } = useContext(TodoContext);
 
     //<!-- ==========  Managing Task Add Form ========== -->//
     const handleInputValue = (e) => {
@@ -15,6 +16,18 @@ const TaskInput = () => {
             ...prevState,
             [e.target.name]: e.target.value,
         }));
+    };
+    const addNewTodo = () => {
+        axios
+            .post(TASK_API_KEY, todos)
+            .then((res) => {
+                toast.success("Task added successfully");
+                handleFormHide();
+                setTodos(initialTodoFormState);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
     //<!-- ==========  Managing Task Add Form ========== -->//
 
@@ -120,9 +133,11 @@ const TaskInput = () => {
                         className="bg-gray-300 text-buttonText flex justify-center items-center font-paragraph py-2 px-4 rounded-sm text-white ">
                         Cancel
                     </button>
-                    <buttonx className="bg-orange text-buttonText flex justify-center items-center font-paragraph py-2 px-4 rounded-sm text-white ">
+                    <button
+                        onClick={addNewTodo}
+                        className="bg-orange text-buttonText flex justify-center items-center font-paragraph py-2 px-4 rounded-sm text-white ">
                         Add task
-                    </buttonx>
+                    </button>
                 </div>
             </div>
         </div>
