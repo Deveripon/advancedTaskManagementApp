@@ -7,6 +7,7 @@ import { TfiSearch } from "react-icons/tfi";
 import { FaTasks } from "react-icons/fa";
 import { MdLabelImportant } from "react-icons/md";
 import { FcCalendar } from "react-icons/fc";
+import { IoTrashBinSharp } from "react-icons/io5";
 import { useContext, useState } from "react";
 import InputFormContext from "../context/InputFormContext";
 import TodoContext from "../context/TodoContext";
@@ -22,6 +23,7 @@ const LeftSideBar = ({ setFullScreen, fullScreen }) => {
         getNotUrgentTodos,
         getCompletedTodos,
         getSearchedTodos,
+        getTrashedTodos,
     } = useContext(TodoContext);
 
     const location = useLocation();
@@ -174,6 +176,19 @@ const LeftSideBar = ({ setFullScreen, fullScreen }) => {
                             <p className="flex justify-start w-full items-center gap-1">
                                 <MdLabelImportant className="text-green" />
                                 Completed
+                            </p>
+                        </NavLink>
+                        <NavLink
+                            onClick={getTrashedTodos}
+                            to="/bin"
+                            className={`hover:bg-blue-light md:w-full ${
+                                location.pathname === "/bin"
+                                    ? "bg-blue-light text-orange"
+                                    : "bg-gray-50"
+                            } text-paragraph transform duration-100 hover:text-orange text-gray-500`}>
+                            <p className="flex justify-start w-full items-center gap-1">
+                                <IoTrashBinSharp className="text-red-600" />
+                                Trash Bin
                             </p>
                         </NavLink>
                     </ul>

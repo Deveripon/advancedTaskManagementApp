@@ -11,5 +11,6 @@ const router = createBrowserRouter([
     { path: "/completed", element: <Home /> },
     { path: "/trashed", element: <Home /> },
     { path: "/today", element: <Home /> },
+    { path: "/bin", element: <Home /> },
 ]);
 export default router;

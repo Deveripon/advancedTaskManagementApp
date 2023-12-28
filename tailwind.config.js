@@ -19,6 +19,8 @@ export default {
                 pink: "#FF2E63",
                 pinkLight: "#F8DFD4",
                 green: "#65B741",
+                greenLight: "rgba(182, 226, 161,.8)",
+                importantPInk: "rgba(228, 133, 134,.4)",
             },
             fontFamily: {
                 paragraph: ["Hind", "sans-serif"],
