@@ -4,10 +4,10 @@ import InputFormContext from "../context/InputFormContext";
 import TodoContext from "../context/TodoContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+
 const TaskInput = () => {
     const { handleFormHide } = useContext(InputFormContext);
-    const { todos, setTodos, initialTodoFormState } =
-        useContext(TodoContext);
+    const { todos, setTodos } = useContext(TodoContext);
 
     //<!-- ==========  Managing Task Add Form ========== -->//
     const handleInputValue = (e) => {
@@ -15,19 +15,6 @@ const TaskInput = () => {
             ...prevState,
             [e.target.name]: e.target.value,
         }));
-    };
-
-    const handleTodoSubmit = (e) => {
-        axios
-            .post("http://localhost:5050/tasks", todos)
-            .then((res) => {
-                handleFormHide();
-                setTodos(initialTodoFormState);
-                toast.success("Task added successfully");
-            })
-            .catch((err) => {
-                console.log(err);
-            });
     };
     //<!-- ==========  Managing Task Add Form ========== -->//
 
@@ -56,9 +43,7 @@ const TaskInput = () => {
                 </div>
                 <div className="buttons-group p-3 flex flex-wrap gap-y-2 justify-start items-center gap-x-3">
                     <div className="date-selector flex bg-blue-light justify-start items-center  rounded-md text-[12px] font-paragraph border-dashed border">
-                        <label
-                            className=" mt-[-6px] ml-1 text-buttonText border-r"
-                            htmlFor="date">
+                        <label className=" mt-[-6px] ml-1 text-buttonText border-r" htmlFor="date">
                             Due Date
                         </label>
                         <input
@@ -74,29 +59,20 @@ const TaskInput = () => {
                         <select
                             // bg should change on state change of select value
                             className={`p-2 ${
-                                todos.priority ===
-                                "Important"
-                                    ? "bg-pink"
-                                    : "bg-accent"
+                                todos.priority === "Important" ? "bg-pink" : "bg-accent"
                             }
                             text-white outline-none cursor-pointer  rounded-md`}
                             onChange={handleInputValue}
                             name="priority"
                             id="priority">
                             <option
-                                selected={
-                                    todos.priority ===
-                                    "Important"
-                                }
+                                selected={todos.priority === "Important"}
                                 className="outline-none"
                                 value="Important">
                                 Important
                             </option>
                             <option
-                                selected={
-                                    todos.priority ===
-                                    "Not Important"
-                                }
+                                selected={todos.priority === "Not Important"}
                                 className="outline-none"
                                 value="Not Important">
                                 Not Important
@@ -109,13 +85,8 @@ const TaskInput = () => {
                                 className="flex gap-2 bg-red-300 has-[:checked]:bg-gray-200 has-[:checked]:border-gray-300 has-[:checked]:border cursor-pointer rounded-md p-2 "
                                 htmlFor="urgent">
                                 <input
-                                    onChange={
-                                        handleInputValue
-                                    }
-                                    checked={
-                                        todos.priorityLabel ===
-                                        "Urgent"
-                                    }
+                                    onChange={handleInputValue}
+                                    checked={todos.priorityLabel === "Urgent"}
                                     className=""
                                     type="radio"
                                     name="priorityLabel"
@@ -130,13 +101,8 @@ const TaskInput = () => {
                                 className="flex gap-2 bg-red-300 has-[:checked]:bg-gray-200 has-[:checked]:border-gray-300 has-[:checked]:border cursor-pointer rounded-md p-2"
                                 htmlFor="noturgent">
                                 <input
-                                    onChange={
-                                        handleInputValue
-                                    }
-                                    checked={
-                                        todos.priorityLabel ===
-                                        "Not Urgent"
-                                    }
+                                    onChange={handleInputValue}
+                                    checked={todos.priorityLabel === "Not Urgent"}
                                     type="radio"
                                     name="priorityLabel"
                                     id="noturgent"
@@ -154,11 +120,9 @@ const TaskInput = () => {
                         className="bg-gray-300 text-buttonText flex justify-center items-center font-paragraph py-2 px-4 rounded-sm text-white ">
                         Cancel
                     </button>
-                    <button
-                        onClick={handleTodoSubmit}
-                        className="bg-orange text-buttonText flex justify-center items-center font-paragraph py-2 px-4 rounded-sm text-white ">
+                    <buttonx className="bg-orange text-buttonText flex justify-center items-center font-paragraph py-2 px-4 rounded-sm text-white ">
                         Add task
-                    </button>
+                    </buttonx>
                 </div>
             </div>
         </div>
