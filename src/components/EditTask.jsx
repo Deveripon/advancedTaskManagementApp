@@ -1,43 +1,42 @@
-import Divider from "./Divider";
 import { useContext } from "react";
-import InputFormContext from "../context/InputFormContext";
-import TodoContext from "../context/TodoContext";
-import { toast } from "react-toastify";
+import Divider from "./Divider";
+import EditFormContext from "../context/EditFormContext";
 import axios from "axios";
+import { toast } from "react-toastify";
+import TodoContext from "../context/TodoContext";
 const TASK_API_KEY = import.meta.env.VITE_TASK_API_URL;
-const TaskInput = () => {
-    const { handleFormHide } = useContext(InputFormContext);
-    const { todos, setTodos, initialTodoFormState, getAllTodos } = useContext(TodoContext);
 
+const EditTask = () => {
+    const { edit, setEdit, selectedTask, setSelectedTask } = useContext(EditFormContext);
+    const { getAllTodos } = useContext(TodoContext);
     //<!-- ==========  Managing Task Add Form ========== -->//
     const handleInputValue = (e) => {
-        setTodos((prevState) => ({
+        setSelectedTask((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
         }));
     };
-    const addNewTodo = () => {
+    const updateTodoData = (todo) => {
         axios
-            .post(TASK_API_KEY, todos)
+            .patch(`${TASK_API_KEY}/${todo.id}`, selectedTask)
             .then((res) => {
+                toast.success("Task Updated");
+                setEdit(false);
                 getAllTodos();
-                toast.success("Task added successfully");
-                handleFormHide();
-                setTodos(initialTodoFormState);
             })
             .catch((err) => {
                 console.log(err);
             });
     };
     //<!-- ==========  Managing Task Add Form ========== -->//
-
     return (
         <div className="task-input-section w-full ">
+            <h3>/Edit Task</h3>
             <div className="task-input-wrapper my-3 flex flex-col rounded-md border">
                 <div className="input-group flex flex-col rounded-md p-3">
                     <input
                         onChange={handleInputValue}
-                        value={todos.title}
+                        value={selectedTask.title}
                         type="text"
                         name="title"
                         id="title"
@@ -46,7 +45,7 @@ const TaskInput = () => {
                     />
                     <textarea
                         onChange={handleInputValue}
-                        value={todos.desc}
+                        value={selectedTask.desc}
                         placeholder="Description"
                         name="desc"
                         className="text-paragraph p-2 outline-none"
@@ -61,7 +60,7 @@ const TaskInput = () => {
                         </label>
                         <input
                             onChange={handleInputValue}
-                            value={todos.date}
+                            value={selectedTask.date}
                             className=" ml-3 mr-3 text-buttonText bg-blue-light my-1 text-pink cursor-pointer outline-none"
                             type="date"
                             name="date"
@@ -70,22 +69,22 @@ const TaskInput = () => {
                     </div>
                     <div className="priority-selector text-buttonText outline-none ">
                         <select
+                            onChange={handleInputValue}
                             // bg should change on state change of select value
                             className={`p-2 ${
-                                todos.priority === "Important" ? "bg-pink" : "bg-accent"
+                                selectedTask.priority === "Important" ? "bg-pink" : "bg-accent"
                             }
                             text-white outline-none cursor-pointer  rounded-md`}
-                            onChange={handleInputValue}
                             name="priority"
                             id="priority">
                             <option
-                                selected={todos.priority === "Important"}
+                                selected={selectedTask.priority === "Important"}
                                 className="outline-none"
                                 value="Important">
                                 Important
                             </option>
                             <option
-                                selected={todos.priority === "Not Important"}
+                                selected={selectedTask.priority === "Not Important"}
                                 className="outline-none"
                                 value="Not Important">
                                 Not Important
@@ -99,7 +98,7 @@ const TaskInput = () => {
                                 htmlFor="urgent">
                                 <input
                                     onChange={handleInputValue}
-                                    checked={todos.priorityLabel === "Urgent"}
+                                    checked={selectedTask.priorityLabel === "Urgent"}
                                     className=""
                                     type="radio"
                                     name="priorityLabel"
@@ -115,7 +114,7 @@ const TaskInput = () => {
                                 htmlFor="noturgent">
                                 <input
                                     onChange={handleInputValue}
-                                    checked={todos.priorityLabel === "Not Urgent"}
+                                    checked={selectedTask.priorityLabel === "Not Urgent"}
                                     type="radio"
                                     name="priorityLabel"
                                     id="noturgent"
@@ -129,14 +128,18 @@ const TaskInput = () => {
                 <Divider />
                 <div className="submit-button-group gap-2 flex  justify-end items-center m-2">
                     <button
-                        onClick={handleFormHide}
+                        onClick={() => {
+                            setEdit(false);
+                        }}
                         className="bg-gray-300 text-buttonText flex justify-center items-center font-paragraph py-2 px-4 rounded-sm text-white ">
                         Cancel
                     </button>
                     <button
-                        onClick={addNewTodo}
+                        onClick={() => {
+                            updateTodoData(selectedTask);
+                        }}
                         className="bg-orange text-buttonText flex justify-center items-center font-paragraph py-2 px-4 rounded-sm text-white ">
-                        Add task
+                        Update task
                     </button>
                 </div>
             </div>
@@ -144,4 +147,4 @@ const TaskInput = () => {
     );
 };
 
-export default TaskInput;
+export default EditTask;
