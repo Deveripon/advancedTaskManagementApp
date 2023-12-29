@@ -75,7 +75,7 @@ const LeftSideBar = ({ setFullScreen, fullScreen }) => {
                         </li>
 
                         <li className="hover:bg-blue-light md:w-full bg-gray-50 text-paragraph transform duration-100 hover:text-orange text-gray-500">
-                            <div className="search flex justify-start w-full items-center gap-1">
+                            <div className="search flex w-fit md:w-full justify-start items-center gap-1">
                                 <TfiSearch />
                                 <input
                                     onChange={getSearchedTodos}
