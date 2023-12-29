@@ -38,10 +38,10 @@ const RightSightBar = () => {
                     <>
                         <div className="task-list max-h-[75dvh] w-full overflow-y-scroll">
                             <div className="task-wrapper py-3 flex flex-col gap-y-3">
-                                {todoList.loading ? (
+                                {todoList?.loading ? (
                                     <Skeleton />
-                                ) : todoList.data.length > 0 ? (
-                                    todoList.data.map((item, index) => {
+                                ) : todoList?.data.length > 0 ? (
+                                    todoList?.data.map((item, index) => {
                                         return <Task key={index} todo={item} />;
                                     })
                                 ) : (
@@ -59,7 +59,7 @@ const RightSightBar = () => {
                         </button>
 
                         {/* //nodat display massage */}
-                        {todoList.data.length === 0 ? <NoData /> : ""}
+                        {todoList?.data.length === 0 ? <NoData /> : ""}
                     </>
                 )}
             </div>
