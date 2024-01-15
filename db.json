@@ -1,16 +1,6 @@
 {
   "tasks": [
     {
-      "title": "fasdf",
-      "desc": "safd",
-      "date": "2023-12-27",
-      "priority": "Important",
-      "priorityLabel": "Urgent",
-      "isCompleted": false,
-      "isTrashed": false,
-      "id": 3
-    },
-    {
       "title": "edited task",
       "desc": "edited desc",
       "date": "2023-12-30",
@@ -31,26 +21,6 @@
       "id": 5
     },
     {
-      "title": "fdgdfgdfg",
-      "desc": "fsf",
-      "date": "2023-12-28",
-      "priority": "Important",
-      "priorityLabel": "Urgent",
-      "isCompleted": true,
-      "isTrashed": false,
-      "id": 6
-    },
-    {
-      "title": "sdfd",
-      "desc": "",
-      "date": "2023-12-28",
-      "priority": "Important",
-      "priorityLabel": "Urgent",
-      "isCompleted": true,
-      "isTrashed": false,
-      "id": 7
-    },
-    {
       "title": "new task updatwed",
       "desc": "new desc",
       "date": "2023-12-28",
@@ -59,16 +29,6 @@
       "isCompleted": false,
       "isTrashed": false,
       "id": 8
-    },
-    {
-      "title": "new1",
-      "desc": "ne2w2",
-      "date": "2023-12-28",
-      "priority": "Important",
-      "priorityLabel": "Not Urgent",
-      "isCompleted": false,
-      "isTrashed": false,
-      "id": 10
     }
   ]
 }
